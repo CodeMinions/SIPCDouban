@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="mContext"
+            type="com.example.fcy_Utils.Search_Fragment" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/search_content"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:hint="@string/search_hint" />
+
+        <include
+            layout="@layout/sector_of_fragment"
+            bind:mContext="@{mContext}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/b1"
+                layout="@layout/customer_title_1" />
+
+            <include
+                android:id="@+id/b2"
+                layout="@layout/customer_title_1" />
+
+            <include
+                android:id="@+id/b3"
+                layout="@layout/customer_title_1" />
+
+            <include
+                android:id="@+id/b4"
+                layout="@layout/customer_title_1" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/content_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</layout>

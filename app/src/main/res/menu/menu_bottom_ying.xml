@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/hot_show"
+        android:icon="@drawable/hot_show_pi"
+        android:title="@string/hot_show" />
+    <item
+        android:id="@+id/search_movie"
+        android:icon="@drawable/search_pic"
+        android:title="@string/search_movies" />
+</menu>

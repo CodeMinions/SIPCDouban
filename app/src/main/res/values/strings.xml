@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">SIPCDouban</string>
+    <string name="hot_show">热映</string>
+    <string name="search_movies">找片</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_hint">搜索内容</string>
+    <string name="search_movie">找电影</string>
+    <string name="search_tv">找电视</string>
+    <string name="type_movie">电影</string>
+    <string name="type_tv">电视</string>
+    <string name="schedule">播出时间表</string>
+    <string name="rank_list">豆瓣榜单</string>
+    <string name="dou_ban_cai">豆瓣猜</string>
+    <string name="movie_list">豆瓣片单</string>
 </resources>

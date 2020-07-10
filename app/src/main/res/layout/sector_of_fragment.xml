@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="mContext"
+            type="com.example.fcy_Utils.Search_Fragment" />
+    </data>
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/type_1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:background="#fff"
+            android:onClick="@{() -> mContext.changeLabel(0)}"
+            android:text="@string/type_movie"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/type_2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:background="#fff"
+            android:onClick="@{() -> mContext.changeLabel(1)}"
+            android:text="@string/type_tv"
+            android:textSize="20sp" />
+    </LinearLayout>
+</layout>
+
