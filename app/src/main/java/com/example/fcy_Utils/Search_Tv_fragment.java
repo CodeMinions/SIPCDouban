@@ -12,10 +12,10 @@ import com.example.sipcdouban.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link movie_fragment#newInstance} factory method to
+ * Use the {@link Search_Tv_fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class movie_fragment extends Fragment {
+public class Search_Tv_fragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class movie_fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public movie_fragment() {
+    public Search_Tv_fragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class movie_fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment movie_fragment.
+     * @return A new instance of fragment Search_Tv_fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static movie_fragment newInstance(String param1, String param2) {
-        movie_fragment fragment = new movie_fragment();
+    public static Search_Tv_fragment newInstance(String param1, String param2) {
+        Search_Tv_fragment fragment = new Search_Tv_fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class movie_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_search__tv_fragment, container, false);
     }
 }

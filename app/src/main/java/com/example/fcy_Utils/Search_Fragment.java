@@ -24,6 +24,7 @@ import com.example.sipcdouban.databinding.FragmentSearchBinding;
  */
 public class Search_Fragment extends Fragment implements View.OnClickListener {
     private int current_type = -1;
+    private Fragment[] fragments = new Fragment[]{new Search_movie_fragment(), new Search_Tv_fragment()};
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,6 +33,7 @@ public class Search_Fragment extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private FragmentSearchBinding binding;
 
     public Search_Fragment() {
         // Required empty public constructor
@@ -66,13 +68,16 @@ public class Search_Fragment extends Fragment implements View.OnClickListener {
     }
 
     private static final String TAG = "Search_Fragment";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentSearchBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_search_,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_, container, false);
         binding.setMContext(this);
         binding.setLifecycleOwner(getActivity());
         Log.d(TAG, "onCreateView: ");
+        if (getFragmentManager() != null)
+            getFragmentManager().beginTransaction().replace(binding.contentShow.getId(), new Search_movie_fragment()).commit();
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -106,20 +111,24 @@ public class Search_Fragment extends Fragment implements View.OnClickListener {
     }
 
     private final int[][] ids_1 = new int[][]{{R.drawable.pic_search, R.drawable.rank_list_pic, R.drawable.dou_ban_cai_pic, R.drawable.movies_list_pic}
-            , {R.drawable.pic_search, R.drawable.rank_list_pic, R.drawable.dou_ban_cai_pic,R.drawable.schedule_pic}};
+            , {R.drawable.pic_search, R.drawable.rank_list_pic, R.drawable.dou_ban_cai_pic, R.drawable.schedule_pic}};
     private final int[][] ids_2 = new int[][]{{R.string.search_movie, R.string.rank_list, R.string.dou_ban_cai, R.string.movie_list}
-            , {R.string.search_tv,R.string.rank_list,R.string.dou_ban_cai,R.string.schedule}};
+            , {R.string.search_tv, R.string.rank_list, R.string.dou_ban_cai, R.string.schedule}};
 
     public void changeLabel(int x) {
         if (x == current_type) return;
         else current_type = (current_type + 1) % 2;
         int[] ids = new int[]{R.id.b1, R.id.b2, R.id.b3, R.id.b4};
+        if (getFragmentManager() != null)
+            getFragmentManager().beginTransaction().replace(binding.contentShow.getId(), fragments[current_type]).commit();
         for (int i = 0; i < 4; i++) {
-            View view = getView().findViewById(ids[i]);
-            ImageView imageView = view.findViewById(R.id.icon);
-            TextView title = view.findViewById(R.id.title);
-            imageView.setImageResource(ids_1[current_type][i]);
-            title.setText(getResources().getString(ids_2[current_type][i]));
+            if (getView() != null) {
+                View view = getView().findViewById(ids[i]);
+                ImageView imageView = view.findViewById(R.id.icon);
+                TextView title = view.findViewById(R.id.title);
+                imageView.setImageResource(ids_1[current_type][i]);
+                title.setText(getResources().getString(ids_2[current_type][i]));
+            }
         }
     }
 

@@ -12,4 +12,15 @@
     <string name="rank_list">豆瓣榜单</string>
     <string name="dou_ban_cai">豆瓣猜</string>
     <string name="movie_list">豆瓣片单</string>
+    <string name="douban_hotshow">豆瓣热门</string>
+    <string name="total">全部</string>
+    <string name="type_2_1">美剧</string>
+    <string name="type_2_2">日剧</string>
+    <string name="type_1_1">悬疑片</string>
+    <string name="type_1_2">喜剧片</string>
+    <string name="browseByCategory">分类浏览</string>
+
+    <string name="click_into">点击进入</string>
+    <string name="movie_page">电影封面</string>
+    <string name="douban_short_video">豆瓣视频</string>
 </resources>
