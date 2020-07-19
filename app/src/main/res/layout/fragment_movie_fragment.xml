@@ -21,7 +21,7 @@
                 layout="@layout/douban_hotshow_fragment" />
 
             <include
-                android:id="@+id/douban_rankList"
+                android:id="@+id/douban_rankList_movie"
                 layout="@layout/douban_hotshow_fragment" />
 
             <include
@@ -29,7 +29,7 @@
                 layout="@layout/douban_hotshow_fragment" />
 
             <include
-                android:id="@+id/browser_by_category"
+                android:id="@+id/browser_by_category_movie"
                 layout="@layout/browse_by_category" />
 
             <include

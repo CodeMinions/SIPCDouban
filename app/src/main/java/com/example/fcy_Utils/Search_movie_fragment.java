@@ -2,6 +2,7 @@ package com.example.fcy_Utils;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.sipcdouban.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,7 +78,7 @@ public class Search_movie_fragment extends Fragment {
         通过网络请求拿到数据 设置adapter的数据
          */
         // 豆瓣榜单
-        View rankList = view.findViewById(R.id.douban_rankList);
+        View rankList = view.findViewById(R.id.douban_rankList_movie);
         TextView total_movie = rankList.findViewById(R.id.douban_hotshow_total);
         TextView title = rankList.findViewById(R.id.title);
         RecyclerView recyclerView1 = rankList.findViewById(R.id.hotshow_list);
@@ -83,6 +86,21 @@ public class Search_movie_fragment extends Fragment {
         manager1.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView1.setLayoutManager(manager1);
         title.setText(getResources().getString(R.string.rank_list));
+        ArrayList<hot_category> arrayList = new ArrayList<>();
+        arrayList.add(new hot_category());
+        recyclerView1.setAdapter(new MyRecycleAdapter(arrayList) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_hot_category;
+            }
+
+            @Override
+            public void bindView(VH holder, Object data, int position) {
+
+            }
+
+
+        });
         /*
         设置adapter 全设置为图片
          */
@@ -105,5 +123,9 @@ public class Search_movie_fragment extends Fragment {
         title3.setText(getResources().getString(R.string.search_movie));
 
         return view;
+    }
+    public static class hot_category {
+        private int src_id;
+
     }
 }

@@ -19,8 +19,9 @@
     <string name="type_1_1">悬疑片</string>
     <string name="type_1_2">喜剧片</string>
     <string name="browseByCategory">分类浏览</string>
-
     <string name="click_into">点击进入</string>
     <string name="movie_page">电影封面</string>
     <string name="douban_short_video">豆瓣视频</string>
+    <string name="on_the_air">即将播出</string>
+    <string name="movie_img">电影图片</string>
 </resources>

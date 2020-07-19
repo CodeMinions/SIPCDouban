@@ -16,7 +16,8 @@
             android:layout_height="match_parent"
             android:text="@string/douban_hotshow"
             android:textColor="#000"
-            android:textSize="@dimen/middle" />
+            android:textSize="@dimen/middle"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/douban_hotshow_total"
