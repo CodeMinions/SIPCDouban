@@ -24,4 +24,18 @@
     <string name="douban_short_video">豆瓣视频</string>
     <string name="on_the_air">即将播出</string>
     <string name="movie_img">电影图片</string>
+    <string name="updateTime">每周三更新</string>
+    <string name="ranklist_2_1_name">华语口碑剧集榜</string>
+    <string name="ranklist_2_2_name">全球口碑聚集帮</string>
+    <string name="ranklist_1_1_name">一周口碑电影榜</string>
+    <string name="ranklist_1_2_name">豆瓣电影Top250</string>
+    <string name="search_bar_hint">电影/电视剧/影人</string>
+    <string name="douBan_pingFen">豆瓣评分™</string>
+    <string name="category_channel">所属频道</string>
+    <string name="brief_introduction">简介</string>
+    <string name="show_all_content">展开</string>
+    <string name="tho_one_like_this_movie">喜欢这部电影的人也喜欢</string>
+    <string name="tho_one_like_this_tv">喜欢这部电视的人也喜欢</string>
+    <string name="back_btn">返回按钮</string>
+    <string name="more">showMore</string>
 </resources>

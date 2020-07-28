@@ -2,4 +2,5 @@
 <resources>
     <dimen name="little">13sp</dimen>
     <dimen name="middle">18sp</dimen>
+    <dimen name="middle_24">20sp</dimen>
 </resources>

@@ -15,15 +15,20 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <EditText
+        <com.example.fcy_Utils.customer.MyEditText
             android:id="@+id/search_content"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:hint="@string/search_hint" />
+            android:layout_height="30dp"
+            android:autofillHints=""
+            android:background="@drawable/item_search_movie_background"
+            android:drawableStart="@drawable/ic_baseline_search_24"
+            android:hint="@string/search_bar_hint"
+            android:inputType="" />
 
         <include
             layout="@layout/sector_of_fragment"
             bind:mContext="@{mContext}" />
+
 
         <LinearLayout
             android:layout_width="match_parent"

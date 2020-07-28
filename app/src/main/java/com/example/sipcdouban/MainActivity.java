@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment, fragments[0]).commit();
                         break;
                     case R.id.hot_show:
-                        // 更改到热搜fragment
+                        // 更改到热映fragment
                         break;
                     default:
                 }
