@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.sipcdouban.R;
 import com.example.sipcdouban.databinding.FragmentSearchBinding;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +76,7 @@ public class Search_Fragment extends Fragment implements View.OnClickListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_, container, false);
         binding.setMContext(this);
         binding.setLifecycleOwner(getActivity());
+
         Log.d(TAG, "onCreateView: ");
         if (getFragmentManager() != null)
             getFragmentManager().beginTransaction().replace(binding.contentShow.getId(), new Search_movie_fragment()).commit();
@@ -131,5 +133,6 @@ public class Search_Fragment extends Fragment implements View.OnClickListener {
             }
         }
     }
+
 
 }

@@ -15,6 +15,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/movie_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/back_btn"
@@ -66,14 +67,14 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_weight="6"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_Cname"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:gravity="center_vertical"
                         android:text="名字"
                         android:textColor="#fff"
@@ -84,7 +85,7 @@
                         android:id="@+id/tv_Ename"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:maxLines="1"
                         android:textColor="#fff"
                         android:textSize="@dimen/middle" />
@@ -94,23 +95,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginBottom="5dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:textColor="#fff"
                         android:textSize="@dimen/little" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="2"
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1.5"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_marginEnd="5dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-                            android:background="#fff"
+                            android:background="@drawable/detail_tv_back"
                             android:drawableStart="@drawable/ic_want_to_see"
+                            android:drawablePadding="10dp"
                             android:gravity="center_vertical"
                             android:padding="1dp"
                             android:text="想看" />
@@ -118,10 +121,11 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_marginEnd="5dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-                            android:background="#fff"
+                            android:background="@drawable/detail_tv_back"
                             android:drawableStart="@drawable/ic_seening"
+                            android:drawablePadding="10dp"
                             android:gravity="center_vertical"
                             android:text="在看" />
 
@@ -129,8 +133,9 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:background="#fff"
+                            android:background="@drawable/detail_tv_back"
                             android:drawableStart="@drawable/have_seen"
+                            android:drawablePadding="10dp"
                             android:gravity="center_vertical"
                             android:text="看过" />
                     </LinearLayout>
@@ -138,6 +143,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:background="#8A000000"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -184,10 +190,11 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
+                    android:layout_marginVertical="20dp"
                     android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:orientation="vertical"
-                    android:paddingEnd="15dp"
+                    android:paddingEnd="40dp"
                     tools:ignore="RtlSymmetry">
 
                     <LinearLayout
@@ -200,13 +207,13 @@
 
                         <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:layout_width="wrap_content"
-                            android:layout_height="20dp"
+                            android:layout_height="10dp"
                             android:numStars="5" />
 
                         <ProgressBar
                             style="@android:style/Widget.ProgressBar.Horizontal"
                             android:layout_width="100dp"
-                            android:layout_height="20dp" />
+                            android:layout_height="10dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -218,13 +225,13 @@
 
                         <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:layout_width="wrap_content"
-                            android:layout_height="20dp"
+                            android:layout_height="10dp"
                             android:numStars="4" />
 
                         <ProgressBar
                             style="@android:style/Widget.ProgressBar.Horizontal"
                             android:layout_width="100dp"
-                            android:layout_height="20dp" />
+                            android:layout_height="10dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -236,13 +243,13 @@
 
                         <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:layout_width="wrap_content"
-                            android:layout_height="20dp"
+                            android:layout_height="10dp"
                             android:numStars="3" />
 
                         <ProgressBar
                             style="@android:style/Widget.ProgressBar.Horizontal"
                             android:layout_width="100dp"
-                            android:layout_height="20dp" />
+                            android:layout_height="10dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -254,13 +261,13 @@
 
                         <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:layout_width="wrap_content"
-                            android:layout_height="20dp"
+                            android:layout_height="10dp"
                             android:numStars="2" />
 
                         <ProgressBar
                             style="@android:style/Widget.ProgressBar.Horizontal"
                             android:layout_width="100dp"
-                            android:layout_height="20dp" />
+                            android:layout_height="10dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -272,13 +279,13 @@
 
                         <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:layout_width="wrap_content"
-                            android:layout_height="20dp"
+                            android:layout_height="10dp"
                             android:numStars="1" />
 
                         <ProgressBar
                             style="@android:style/Widget.ProgressBar.Horizontal"
                             android:layout_width="100dp"
-                            android:layout_height="20dp" />
+                            android:layout_height="10dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -348,13 +355,12 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/my_tab_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:tabTextAppearance="@dimen/middle"
-                app:tabTextColor="#fff" />
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                app:tabRippleColor="@android:color/transparent" />
             <!--       item :item_hot_category     -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/"
+                android:id="@+id/resemble"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp" />
         </LinearLayout>

@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <com.example.fcy_Utils.customer.MyEditText
+        <com.example.fcy_Utils.tool.MyEditText
             android:id="@+id/search_content"
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -28,7 +28,6 @@
         <include
             layout="@layout/sector_of_fragment"
             bind:mContext="@{mContext}" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
