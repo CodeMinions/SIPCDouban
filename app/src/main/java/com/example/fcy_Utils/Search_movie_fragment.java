@@ -1,6 +1,9 @@
 package com.example.fcy_Utils;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 
@@ -14,18 +17,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.fcy_Utils.LitePal_Class.HotShow_movie;
-import com.example.fcy_Utils.LitePal_Class.Movie_detail;
+import com.bumptech.glide.Glide;
+import com.example.fcy_Utils.gson_class.HotShow_movie;
+import com.example.fcy_Utils.gson_class.Movie_Top250;
+import com.example.fcy_Utils.gson_class.Weekly;
 import com.example.fcy_Utils.tool.MyHttpTool;
-import com.example.sipcdouban.MainActivity;
 import com.example.sipcdouban.R;
 
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,11 +47,12 @@ public class Search_movie_fragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private MyHttpTool myHttpTool = null;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private RecyclerView recyclerView_hot;
+    private MyApplication myApplication;
 
     public Search_movie_fragment() {
         // Required empty public constructor
@@ -90,19 +100,6 @@ public class Search_movie_fragment extends Fragment {
         manager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView_hot.setLayoutManager(manager);
 
-        /*
-        通过网络请求拿到数据 设置adapter的数据
-         */
-        // 豆瓣榜单
-        View rankList = view.findViewById(R.id.douban_rankList_movie);
-        TextView total_movie = rankList.findViewById(R.id.douban_hotshow_total);
-        TextView title = rankList.findViewById(R.id.title);
-        RecyclerView recyclerView1 = rankList.findViewById(R.id.hotshow_list);
-        LinearLayoutManager manager1 = new LinearLayoutManager(getActivity());
-        manager1.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerView1.setLayoutManager(manager1);
-        title.setText(getResources().getString(R.string.rank_list));
-
 
         /*
         设置adapter 全设置为图片
@@ -124,68 +121,116 @@ public class Search_movie_fragment extends Fragment {
         TextView textView = movies.findViewById(R.id.douban_hotshow_total);
         textView.setVisibility(View.GONE);
         title3.setText(getResources().getString(R.string.search_movie));
-
+        mView = view;
         return view;
     }
+
+    private View mView;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        MyApplication application = (MyApplication) getActivity().getApplication();
-        application.getMyHttpTool().getInfo(null,MyHttpTool.TYPE_HOT,this);
-
-
+        myApplication = (MyApplication) getActivity().getApplication();
+        myHttpTool = myApplication.getMyHttpTool();
+        myHttpTool.getInfo(null,MyHttpTool.TYPE_HOT,this);
+        myHttpTool.getTop250_movie(this);
     }
 
-    //    private void initMyDataBase() {
-////        SharedPreferences sharedPreferences = getSharedPreferences("data", MODE_PRIVATE);
-////        int  timeScored = sharedPreferences.getInt("day", 0);
-////        Calendar calendar = Calendar.getInstance();
-////        int currentDay = calendar.get(Calendar.DAY_OF_YEAR);
-////        Log.d(TAG, "initMyDataBase: " + currentDay + "   " + timeScored);
-////        if (currentDay == timeScored) {
-////            Log.d(TAG, "initMyDataBase: ");
-////            myHttpTool.getInfo(null,MyHttpTool.TYPE_HOT,null);
-////            SharedPreferences.Editor editor = sharedPreferences.edit();
-////            editor.putInt("day",currentDay);
-////            editor.apply();
-////        }
-//        MyApplication application = (MyApplication) getActivity().getApplication();
-//        application.getMyHttpTool().getInfo(null,MyHttpTool.TYPE_HOT,getActivity());
-//    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        LitePal.deleteAll(HotShow_movie.class);
+    }
+
     // 在数据加载进数据库以后 通过 MainActivity 调用
-   public void  showTheHot(){
-       final List<HotShow_movie> all = LitePal.findAll(HotShow_movie.class);
-       final MyRecycleAdapter<HotShow_movie> adapter = new MyRecycleAdapter<HotShow_movie>(all) {
+    public void showTheHot(final List<HotShow_movie> all) {
+        Log.d(TAG, "showTheHot: " + all.size());
+        final MyRecycleAdapter<HotShow_movie> adapter = new MyRecycleAdapter<HotShow_movie>(all) {
 
-           @Override
-           public void onClick(View v) {
-               int childAdapterPosition = recyclerView_hot.getChildAdapterPosition(v);
-               Intent intent = new Intent(getActivity(), Detail_Activity.class);
-               String id = all.get(childAdapterPosition).getDouBanId();
-               intent.putExtra("id", id);
-               startActivity(intent);
-           }
-
-
-           @Override
-           public int getLayoutId(int viewType) {
-               return R.layout.item_hot_category;
-           }
-
-           @Override
-           public void bindView(VH holder, HotShow_movie data, int position) {
-               HotShow_movie movie = (HotShow_movie) data;
-               holder.setText(R.id.movie_title, movie.getMovieName());
-               holder.setImagine(R.id.movie_img, movie.getImgUrl());
-               holder.getView(R.id.movie_img).setTag(position);
-           }
-       };
-       recyclerView_hot.setAdapter(adapter);
+            @Override
+            public void onClick(View v) {
+                int childAdapterPosition = recyclerView_hot.getChildAdapterPosition(v);
+                Intent intent = new Intent(myApplication.getContext(), Detail_Activity.class);
+                String id = all.get(childAdapterPosition).douBanId;
+                intent.putExtra("id", id);
+                startActivity(intent);
+            }
 
 
-   }
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_hot_category;
+            }
 
+            @Override
+            public void bindView(VH holder, HotShow_movie movie, int position) {
+                holder.setText(R.id.movie_title, movie.movieName);
+                holder.setImagine(R.id.movie_img, movie.imgUrl);
+                holder.getView(R.id.movie_img).setTag(position);
+            }
+        };
+        recyclerView_hot.setAdapter(adapter);
+    }
+
+    public void showThe250(Movie_Top250 movie_top250) {
+        View view = mView.findViewById(R.id.rank_250);
+        View viewback = view.findViewById(R.id.allTheView);
+        TextView textView = view.findViewById(R.id.rankList_name);
+        textView.setText(myApplication.getResources().getString(R.string.ranklist250));
+        View view1 = view.findViewById(R.id.show_item_1);
+        View veiw2 = view.findViewById(R.id.show_item_2);
+        View veiw3 = view.findViewById(R.id.show_item_3);
+        ArrayList<View> arrayList = new ArrayList<>();
+        arrayList.add(view1);
+        arrayList.add(veiw2);
+        arrayList.add(veiw3);
+        for (int i = 0; i < 3; i++) {
+            View viewC = arrayList.get(i);
+            TextView textView1 = viewC.findViewById(R.id.ranking);
+            textView1.setText(String.valueOf(i + 1));
+            textView1 = viewC.findViewById(R.id.higher_ranking);
+            textView1.setVisibility(View.GONE);
+            ImageView imageView = viewC.findViewById(R.id.movie_img);
+            Glide.with(mView).load(movie_top250.subjects.get(i).images.small_url).into(imageView);
+            textView1 = viewC.findViewById(R.id.name);
+            textView1.setText(movie_top250.subjects.get(i).title);
+            textView1 = viewC.findViewById(R.id.score);
+            textView1.setText(movie_top250.subjects.get(i).rating.average);
+            MaterialRatingBar materialRatingBar = viewC.findViewById(R.id.stars);
+            double stars = Double.parseDouble(movie_top250.subjects.get(i).rating.average);
+            materialRatingBar.setProgress((int) stars );
+
+        }
+    }
+
+    public void showTheWeekly(Weekly weekly) {
+        View view = mView.findViewById(R.id.rank_weekly);
+        TextView textView = view.findViewById(R.id.rankList_name);
+        textView.setText(myApplication.getResources().getString(R.string.ranklist250));
+        View view1 = view.findViewById(R.id.show_item_1);
+        View veiw2 = view.findViewById(R.id.show_item_2);
+        View veiw3 = view.findViewById(R.id.show_item_3);
+        ArrayList<View> arrayList = new ArrayList<>();
+        arrayList.add(view1);
+        arrayList.add(veiw2);
+        arrayList.add(veiw3);
+        for (int i = 0; i < 3; i++) {
+            View viewC = arrayList.get(i);
+            TextView textView1 = viewC.findViewById(R.id.ranking);
+            textView1.setText(String.valueOf(i + 1));
+            textView1 = viewC.findViewById(R.id.higher_ranking);
+            textView1.setVisibility(View.GONE);
+            ImageView imageView = viewC.findViewById(R.id.movie_img);
+            Glide.with(mView).load(weekly.subjects.get(i).subject.images.small_url).into(imageView);
+            textView1 = viewC.findViewById(R.id.name);
+            textView1.setText(weekly.subjects.get(i).subject.title);
+            textView1 = viewC.findViewById(R.id.score);
+            textView1.setText(weekly.subjects.get(i).subject.rating.average);
+            MaterialRatingBar materialRatingBar = viewC.findViewById(R.id.stars);
+            double stars = Double.parseDouble(weekly.subjects.get(i).subject.rating.average);
+            materialRatingBar.setProgress((int) stars);
+
+        }
+    }
 
 }

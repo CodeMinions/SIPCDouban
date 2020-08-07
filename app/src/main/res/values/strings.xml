@@ -28,6 +28,7 @@
     <string name="ranklist_2_1_name">华语口碑剧集榜</string>
     <string name="ranklist_2_2_name">全球口碑聚集帮</string>
     <string name="ranklist_1_1_name">一周口碑电影榜</string>
+    <string name="ranklist250">豆瓣电影 Top250</string>
     <string name="ranklist_1_2_name">豆瓣电影Top250</string>
     <string name="search_bar_hint">电影/电视剧/影人</string>
     <string name="douBan_pingFen">豆瓣评分™</string>
@@ -40,4 +41,5 @@
     <string name="more">showMore</string>
     <string name="movie">电影</string>
     <string name="pian_dan">片单</string>
+    <string name="background_img">背景图片</string>
 </resources>

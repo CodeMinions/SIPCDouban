@@ -38,6 +38,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
     implementation("com.squareup.okhttp3:okhttp:4.8.0")
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'org.litepal.guolindev:core:3.1.1'
 }

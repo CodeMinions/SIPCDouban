@@ -1,15 +1,12 @@
 package com.example.fcy_Utils;
 
 import android.app.Application;
-import android.content.SharedPreferences;
-import android.util.Log;
-
+import android.content.Context;
 
 
 import com.example.fcy_Utils.tool.MyHttpTool;
 
 import org.litepal.LitePal;
-
 
 
 public class MyApplication extends Application {
@@ -20,7 +17,10 @@ public class MyApplication extends Application {
         super.onCreate();
         LitePal.initialize(getApplicationContext());
         myHttpTool = new MyHttpTool(getApplicationContext());
-//        LitePal.deleteAll(HotShow_movie.class);
+    }
+
+    public  Context getContext(){
+        return this;
     }
 
     private static final String TAG = "MyApplication";

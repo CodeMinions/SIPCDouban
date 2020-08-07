@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -83,6 +84,10 @@ public abstract class MyRecycleAdapter<T> extends RecyclerView.Adapter<MyRecycle
         public void setText(int id, String content) {
             TextView textView = getView(id);
             textView.setText(content);
+        }
+        public void setBtnText(int id,String context){
+            Button button = getView(id);
+            button.setText(context);
         }
 
     }
