@@ -49,6 +49,7 @@ public class MyHttpTool {
     public static final String HOT_SHOW_MOVIE = "http://192.168.5.21:3000/movie/movie_hot";
     public static String MOVIE_DETAIL2 = "https://api.douban.com/v2/movie/subject/id?apikey=0df993c66c0c636e29ecbb5344252a4a";
     public static String MOVIE_LIKE = "http://192.168.5.21:3000/movie/movie_like/";
+
     // 请求热映电影列表
     public static final int TYPE_HOT = 0;
     // 请求相似的电影

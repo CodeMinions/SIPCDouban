@@ -69,7 +69,6 @@ public class Search_Fragment extends Fragment implements View.OnClickListener {
     }
 
     private static final String TAG = "Search_Fragment";
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,7 +78,10 @@ public class Search_Fragment extends Fragment implements View.OnClickListener {
 
         Log.d(TAG, "onCreateView: ");
         if (getFragmentManager() != null)
-            getFragmentManager().beginTransaction().replace(binding.contentShow.getId(), new Search_movie_fragment()).commit();
+//            getFragmentManager().beginTransaction().replace(binding.contentShow.getId(), new Search_movie_fragment()).commit();
+        {
+            getFragmentManager().beginTransaction().add(R.id.content_show,fragments[1]).hide(fragments[1]).add(R.id.content_show,fragments[0]).commit();
+        }
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -122,7 +124,8 @@ public class Search_Fragment extends Fragment implements View.OnClickListener {
         else current_type = (current_type + 1) % 2;
         int[] ids = new int[]{R.id.b1, R.id.b2, R.id.b3, R.id.b4};
         if (getFragmentManager() != null)
-            getFragmentManager().beginTransaction().replace(binding.contentShow.getId(), fragments[current_type]).commit();
+//            getFragmentManager().beginTransaction().replace(binding.contentShow.getId(), fragments[current_type]).commit();
+            getFragmentManager().beginTransaction().hide(fragments[(current_type+1)%2]).show(fragments[current_type]).commit();
         for (int i = 0; i < 4; i++) {
             if (getView() != null) {
                 View view = getView().findViewById(ids[i]);

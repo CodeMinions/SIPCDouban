@@ -53,6 +53,7 @@ public class Search_movie_fragment extends Fragment {
     private String mParam2;
     private RecyclerView recyclerView_hot;
     private MyApplication myApplication;
+    private RecyclerView recyclerView_seekMovies;
 
     public Search_movie_fragment() {
         // Required empty public constructor
@@ -119,6 +120,7 @@ public class Search_movie_fragment extends Fragment {
         View movies = view.findViewById(R.id.search_movies);
         TextView title3 = movies.findViewById(R.id.title);
         TextView textView = movies.findViewById(R.id.douban_hotshow_total);
+        recyclerView_seekMovies = movies.findViewById(R.id.hotshow_list);
         textView.setVisibility(View.GONE);
         title3.setText(getResources().getString(R.string.search_movie));
         mView = view;
@@ -132,7 +134,7 @@ public class Search_movie_fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         myApplication = (MyApplication) getActivity().getApplication();
         myHttpTool = myApplication.getMyHttpTool();
-        myHttpTool.getInfo(null,MyHttpTool.TYPE_HOT,this);
+        myHttpTool.getInfo(null, MyHttpTool.TYPE_HOT, this);
         myHttpTool.getTop250_movie(this);
     }
 
@@ -150,10 +152,8 @@ public class Search_movie_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 int childAdapterPosition = recyclerView_hot.getChildAdapterPosition(v);
-                Intent intent = new Intent(myApplication.getContext(), Detail_Activity.class);
                 String id = all.get(childAdapterPosition).douBanId;
-                intent.putExtra("id", id);
-                startActivity(intent);
+                toTheDetail(id);
             }
 
 
@@ -172,7 +172,52 @@ public class Search_movie_fragment extends Fragment {
         recyclerView_hot.setAdapter(adapter);
     }
 
+    public void showTheSeekMovie(final Movie_Top250 movie_top250) {
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        recyclerView_seekMovies.setLayoutManager(manager);
+        for (int i = 0; i < 3; i++) {
+            movie_top250.subjects.remove(i);
+        }
+        recyclerView_seekMovies.setAdapter(new MyRecycleAdapter<Movie_Top250.Subject>(movie_top250.subjects) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_search_movie_tv;
+            }
+
+            @Override
+            public void bindView(VH holder, Movie_Top250.Subject data, int position) {
+                holder.setImagine(R.id.show_img, data.images.small_url);
+                String name = data.title + "(" + data.year + ")";
+                holder.setText(R.id.content_name,name);
+                MaterialRatingBar ratingBar = holder.getView(R.id.starts);
+                ratingBar.setProgress((int) Double.parseDouble(data.rating.average));
+                holder.setText(R.id.score,data.rating.average);
+                StringBuilder builder = new StringBuilder();
+                for (String genre : data.genres) {
+                    builder.append(genre);
+                    builder.append("  ");
+                }
+                holder.setText(R.id.content_description,builder.toString());
+            }
+
+            @Override
+            public void onClick(View v) {
+                int childAdapterPosition = recyclerView_seekMovies.getChildAdapterPosition(v);
+                String douBanId = movie_top250.subjects.get(childAdapterPosition).doubanId;
+                toTheDetail(douBanId);
+            }
+
+        });
+    }
+
+    public void toTheDetail(String id) {
+        Intent intent = new Intent(myApplication.getContext(), Detail_Activity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
+
     public void showThe250(Movie_Top250 movie_top250) {
+        Log.d(TAG, "showThe250: " + movie_top250.subjects.size());
         View view = mView.findViewById(R.id.rank_250);
         View viewback = view.findViewById(R.id.allTheView);
         TextView textView = view.findViewById(R.id.rankList_name);
@@ -198,12 +243,14 @@ public class Search_movie_fragment extends Fragment {
             textView1.setText(movie_top250.subjects.get(i).rating.average);
             MaterialRatingBar materialRatingBar = viewC.findViewById(R.id.stars);
             double stars = Double.parseDouble(movie_top250.subjects.get(i).rating.average);
-            materialRatingBar.setProgress((int) stars );
+            materialRatingBar.setProgress((int) stars);
 
         }
+        showTheSeekMovie(movie_top250);
     }
 
     public void showTheWeekly(Weekly weekly) {
+        Log.d(TAG, "showTheWeekly: " + weekly.subjects.size());
         View view = mView.findViewById(R.id.rank_weekly);
         TextView textView = view.findViewById(R.id.rankList_name);
         textView.setText(myApplication.getResources().getString(R.string.ranklist250));

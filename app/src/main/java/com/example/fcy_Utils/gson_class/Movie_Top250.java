@@ -21,6 +21,8 @@ public class Movie_Top250 {
         public String original_title;
         @SerializedName("id")
         public String doubanId;
+        @SerializedName("year")
+        public String year;
         @SerializedName("images")
         public My_Images images;
     }
