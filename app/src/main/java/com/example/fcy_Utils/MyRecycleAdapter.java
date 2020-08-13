@@ -6,6 +6,8 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -77,10 +79,13 @@ public abstract class MyRecycleAdapter<T> extends RecyclerView.Adapter<MyRecycle
 
         public void setImagine(int id, String url) {
             ImageView imageView = getView(id);
-
             Glide.with(mItemView).load(url).into(imageView);
         }
-
+        public void setWebUrl(int id,String url){
+            WebView wb = getView(id);
+            wb.setWebViewClient(new WebViewClient());
+            wb.loadUrl(url);
+        }
         public void setText(int id, String content) {
             TextView textView = getView(id);
             textView.setText(content);

@@ -3,6 +3,7 @@ package com.example.fcy_Utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -30,9 +31,14 @@ import com.example.sipcdouban.R;
 
 import org.litepal.LitePal;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
@@ -101,10 +107,6 @@ public class Search_movie_fragment extends Fragment {
         manager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView_hot.setLayoutManager(manager);
 
-
-        /*
-        设置adapter 全设置为图片
-         */
         View movie_list = view.findViewById(R.id.douban_movie_list);
         TextView title1 = movie_list.findViewById(R.id.title);
         title1.setText(getResources().getString(R.string.movie_list));
@@ -173,7 +175,19 @@ public class Search_movie_fragment extends Fragment {
     }
 
     public void showTheSeekMovie(final Movie_Top250 movie_top250) {
+        // 解决scrollView 跟recyclerView 嵌套导致的 滑动卡顿
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
+//         方法一  取消recyclerView滑动
+        recyclerView_seekMovies.setNestedScrollingEnabled(false);
+        // 方法二 取消scrollView滑动
+
+//            LinearLayoutManager manager1 = new LinearLayoutManager(getContext()){
+//                @Override
+//                public boolean canScrollVertically() {
+//                    return false;
+//                }
+//            };
+
         recyclerView_seekMovies.setLayoutManager(manager);
         for (int i = 0; i < 3; i++) {
             movie_top250.subjects.remove(i);
@@ -188,16 +202,16 @@ public class Search_movie_fragment extends Fragment {
             public void bindView(VH holder, Movie_Top250.Subject data, int position) {
                 holder.setImagine(R.id.show_img, data.images.small_url);
                 String name = data.title + "(" + data.year + ")";
-                holder.setText(R.id.content_name,name);
+                holder.setText(R.id.content_name, name);
                 MaterialRatingBar ratingBar = holder.getView(R.id.starts);
                 ratingBar.setProgress((int) Double.parseDouble(data.rating.average));
-                holder.setText(R.id.score,data.rating.average);
+                holder.setText(R.id.score, data.rating.average);
                 StringBuilder builder = new StringBuilder();
                 for (String genre : data.genres) {
                     builder.append(genre);
                     builder.append("  ");
                 }
-                holder.setText(R.id.content_description,builder.toString());
+                holder.setText(R.id.content_description, builder.toString());
             }
 
             @Override
@@ -216,10 +230,9 @@ public class Search_movie_fragment extends Fragment {
         startActivity(intent);
     }
 
-    public void showThe250(Movie_Top250 movie_top250) {
+    public void showThe250(final Movie_Top250 movie_top250) {
         Log.d(TAG, "showThe250: " + movie_top250.subjects.size());
-        View view = mView.findViewById(R.id.rank_250);
-        View viewback = view.findViewById(R.id.allTheView);
+        final View view = mView.findViewById(R.id.rank_250);
         TextView textView = view.findViewById(R.id.rankList_name);
         textView.setText(myApplication.getResources().getString(R.string.ranklist250));
         View view1 = view.findViewById(R.id.show_item_1);
@@ -244,18 +257,37 @@ public class Search_movie_fragment extends Fragment {
             MaterialRatingBar materialRatingBar = viewC.findViewById(R.id.stars);
             double stars = Double.parseDouble(movie_top250.subjects.get(i).rating.average);
             materialRatingBar.setProgress((int) stars);
-
         }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InputStream inputStream = (InputStream) new URL(movie_top250.subjects.get(0).images.small_url).getContent();
+                    final Drawable drawable = Drawable.createFromStream(inputStream,"src");
+                    inputStream.close();
+                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (drawable != null)
+                                view.setBackground(drawable);
+                            view.getBackground().setAlpha(180);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
         showTheSeekMovie(movie_top250);
     }
 
-    public void showTheWeekly(Weekly weekly) {
+    public void showTheWeekly(final Weekly weekly) {
         Log.d(TAG, "showTheWeekly: " + weekly.subjects.size());
-        View view = mView.findViewById(R.id.rank_weekly);
+        final View view = mView.findViewById(R.id.rank_weekly);
         TextView textView = view.findViewById(R.id.rankList_name);
         textView.setText(myApplication.getResources().getString(R.string.ranklist250));
         View view1 = view.findViewById(R.id.show_item_1);
-        View veiw2 = view.findViewById(R.id.show_item_2);
+        final View veiw2 = view.findViewById(R.id.show_item_2);
         View veiw3 = view.findViewById(R.id.show_item_3);
         ArrayList<View> arrayList = new ArrayList<>();
         arrayList.add(view1);
@@ -276,8 +308,27 @@ public class Search_movie_fragment extends Fragment {
             MaterialRatingBar materialRatingBar = viewC.findViewById(R.id.stars);
             double stars = Double.parseDouble(weekly.subjects.get(i).subject.rating.average);
             materialRatingBar.setProgress((int) stars);
-
         }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InputStream inputStream = (InputStream) new URL(weekly.subjects.get(0).subject.images.small_url).getContent();
+                    final Drawable drawable = Drawable.createFromStream(inputStream,"src");
+                    inputStream.close();
+                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (drawable != null)
+                            view.setBackground(drawable);
+                            view.getBackground().setAlpha(180);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 }

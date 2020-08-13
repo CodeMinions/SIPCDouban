@@ -26,16 +26,19 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         mBottomNavigationView = findViewById(R.id.my_bottom_view);
         mBottomNavigationView.setSelectedItemId(R.id.search_movie);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment, fragments[0]).commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment, fragments[0]).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.content_fragment,fragments[0]).commit();
         mBottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.search_movie:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment, fragments[0]).commit();
+                        getSupportFragmentManager().beginTransaction().show(fragments[0]).commit();
                         break;
                     case R.id.hot_show:
                         // 更改到热映fragment
+                        getSupportFragmentManager().beginTransaction().hide(fragments[0]).commit();
+                        // show另一个fragment
                         break;
                     default:
                 }

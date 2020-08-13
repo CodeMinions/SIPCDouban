@@ -4,10 +4,9 @@
     android:layout_height="120dp"
     android:orientation="vertical"
     android:layout_margin="5dp">
-    <ImageView
-        android:id="@+id/photo"
-        android:scaleType="fitXY"
+    <WebView
+        android:id="@+id/web"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="photo" />
+        android:layout_gravity="center"/>
 </LinearLayout>

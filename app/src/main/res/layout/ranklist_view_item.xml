@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/allTheView"
     android:layout_width="250dp"
     android:layout_height="220dp"
@@ -7,41 +8,47 @@
     android:background="#7A000000"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/back_gradient"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/rankList_name"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/ranklist_2_1_name"
-            android:textColor="#fff"
-            android:textSize="@dimen/middle" />
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/updateTime"
-            android:textColor="#fff"
-            android:textSize="@dimen/little" />
+            <TextView
+                android:id="@+id/rankList_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/ranklist_2_1_name"
+                android:textColor="#fff"
+                android:textSize="@dimen/middle" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/updateTime"
+                android:textColor="#fff"
+                android:textSize="@dimen/little" />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/show_item_1"
+            layout="@layout/ranklist_item_show" />
+
+        <include
+            android:id="@+id/show_item_2"
+            layout="@layout/ranklist_item_show" />
+
+
+        <include
+            android:id="@+id/show_item_3"
+            layout="@layout/ranklist_item_show" />
     </LinearLayout>
-
-    <include
-        android:id="@+id/show_item_1"
-        layout="@layout/ranklist_item_show" />
-
-    <include
-        android:id="@+id/show_item_2"
-        layout="@layout/ranklist_item_show" />
-
-    <include
-        android:id="@+id/show_item_3"
-        layout="@layout/ranklist_item_show" />
-
 </LinearLayout>

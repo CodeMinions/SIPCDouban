@@ -185,6 +185,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:layout_gravity="center_horizontal"
+                            android:isIndicator="true"
                             android:numStars="5" />
                     </LinearLayout>
                 </LinearLayout>
@@ -209,6 +210,7 @@
                         <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:layout_width="wrap_content"
                             android:layout_height="10dp"
+                            android:isIndicator="true"
                             android:numStars="5" />
 
                         <ProgressBar
@@ -229,6 +231,7 @@
                         <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:layout_width="wrap_content"
                             android:layout_height="10dp"
+                            android:isIndicator="true"
                             android:numStars="4" />
 
                         <ProgressBar
@@ -249,6 +252,7 @@
                         <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:layout_width="wrap_content"
                             android:layout_height="10dp"
+                            android:isIndicator="true"
                             android:numStars="3" />
 
                         <ProgressBar
@@ -269,6 +273,7 @@
                         <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:layout_width="wrap_content"
                             android:layout_height="10dp"
+                            android:isIndicator="true"
                             android:numStars="2" />
 
                         <ProgressBar
@@ -289,6 +294,7 @@
                         <me.zhanghai.android.materialratingbar.MaterialRatingBar
                             android:layout_width="wrap_content"
                             android:layout_height="10dp"
+                            android:isIndicator="true"
                             android:numStars="1" />
 
                         <ProgressBar
@@ -324,7 +330,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -334,19 +340,15 @@
                     android:textColor="#fff"
                     android:textSize="@dimen/middle_24" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp">
 
-                    <TextView
-                        android:id="@+id/short_introduction"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:ellipsize="end"
-                        android:maxLines="4"
-                        android:text="" />
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/short_introduction"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:text="" />
+
             </LinearLayout>
             <!--  在java代码中设置字体颜色  以及列表的方向  -->
             <include
